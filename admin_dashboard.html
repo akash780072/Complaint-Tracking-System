@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Alpha College{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <h2>Grievance Administration Dashboard</h2>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg></div>
+        <div class="stat-info">
+            <h3>{{ stats.total }}</h3>
+            <p>Total Filed</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        <div class="stat-info">
+            <h3>{{ stats.resolved }}</h3>
+            <p>Resolved</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+        <div class="stat-info">
+            <h3>{{ stats.pending }}</h3>
+            <p>Pending Action</p>
+        </div>
+    </div>
+</div>
+
+{% if not complaints %}
+    <div style="text-align: center; padding: 4rem; background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow);">
+        <svg style="color: var(--gray); margin-bottom: 1rem;" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+        <h3 style="color: var(--dark);">No Grievances Found</h3>
+        <p style="color: var(--gray); margin-top: 0.5rem;">The campus is completely happy! No active complaints.</p>
+    </div>
+{% else %}
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID & Date</th>
+                    <th>Student Info</th>
+                    <th>Category</th>
+                    <th>Subject</th>
+                    <th>Priority</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in complaints %}
+                <tr>
+                    <td>
+                        <strong>#{{ c.id }}</strong><br>
+                        <span style="font-size: 0.8rem; color: var(--gray);">{{ c.timestamp[:10] }}</span>
+                    </td>
+                    <td>
+                        <div style="font-weight: 600;">{{ c.name }} <span style="font-size: 0.8rem; font-weight:normal; color:var(--gray);">({{ c.student_id }})</span></div>
+                        <div class="tag-dept">{{ c.department }}</div>
+                    </td>
+                    <td>
+                        <span style="font-weight: 500;">{{ c.category }}</span>
+                    </td>
+                    <td>
+                        <div style="font-weight: 500;">{{ c.title }}</div>
+                    </td>
+                    <td>
+                        <span style="color: {% if c.priority == 'High' %}var(--danger){% elif c.priority == 'Medium' %}var(--warning){% else %}var(--success){% endif %}; font-weight: bold;">
+                            {{ c.priority }}
+                        </span>
+                    </td>
+                    <td>
+                        <select class="select-status" data-id="{{ c.id }}" style="border-color: {% if c.status == 'Resolved' %}var(--success){% elif c.status == 'Pending' %}var(--warning){% else %}var(--primary){% endif %};">
+                            <option value="Pending" {% if c.status == 'Pending' %}selected{% endif %}>Pending</option>
+                            <option value="In Progress" {% if c.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                            <option value="Resolved" {% if c.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+                        </select>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Track Status - Alpha College{% endblock %}
+
+{% block content %}
+<div class="form-container" style="max-width: 700px;">
+    <h2 class="form-title">Track Grievance Status</h2>
+    
+    <form method="POST" action="{{ url_for('track') }}" class="search-form">
+        <select name="search_type" class="form-control" style="width: auto;">
+            <option value="id">Grievance ID</option>
+            <option value="email">Student Email</option>
+        </select>
+        <input type="text" name="search_query" class="form-control" placeholder="Enter ID or Email..." required>
+        <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Search</button>
+    </form>
+
+    {% if error %}
+        <div style="background-color: #fee2e2; color: #b91c1c; padding: 1rem; border-radius: var(--radius); margin-bottom: 1.5rem; text-align: center; font-weight: 500;">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if complaint %}
+        <div class="stat-card" style="margin-top: 2rem; display: block; border-left: 5px solid {% if complaint.status == 'Resolved' %}var(--success){% elif complaint.status == 'In Progress' %}var(--primary){% else %}var(--warning){% endif %};">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                <div>
+                    <h3 style="font-size: 1.25rem; font-weight: 700;">{{ complaint.title }}</h3>
+                    <p style="font-size: 0.9rem; color: var(--gray);">ID: #{{ complaint.id }} | Filed on: {{ complaint.timestamp[:16] }}</p>
+                </div>
+                {% if complaint.status == 'Pending' %}
+                    <span class="badge badge-pending">Pending Review</span>
+                {% elif complaint.status == 'In Progress' %}
+                    <span class="badge badge-progress">In Progress</span>
+                {% else %}
+                    <span class="badge badge-resolved">Resolved</span>
+                {% endif %}
+            </div>
+            
+            <div class="details-grid">
+                <div>
+                    <p><strong>Student:</strong> {{ complaint.name }} ({{ complaint.student_id }})</p>
+                    <p><strong>Department:</strong> {{ complaint.department }}</p>
+                    <p><strong>Email:</strong> {{ complaint.email }}</p>
+                </div>
+                <div>
+                    <p><strong>Category:</strong> {{ complaint.category }}</p>
+                    <p><strong>Priority:</strong> 
+                        <span style="font-weight: bold; color: {% if complaint.priority == 'High' %}var(--danger){% elif complaint.priority == 'Medium' %}var(--warning){% else %}var(--success){% endif %};">{{ complaint.priority }}</span>
+                    </p>
+                </div>
+            </div>
+            
+            <div>
+                <strong>Grievance Details:</strong>
+                <p style="margin-top: 0.5rem; white-space: pre-wrap; color: var(--dark); background: #f8fafc; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">{{ complaint.description }}</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

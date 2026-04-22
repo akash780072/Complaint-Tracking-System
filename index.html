@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Alpha College - Grievance Redressal{% endblock %}
+
+{% block content %}
+<div class="hero">
+    <div class="hero-text">
+        <h1>Your Voice.<br><span>Our Campus.</span></h1>
+        <p>The official Grievance Redressal portal for Alpha College. Whether it's academics, infrastructure, or hostel concerns, we ensure a transparent and prompt resolution process.</p>
+        <div class="action-buttons">
+            <a href="{{ url_for('register') }}" class="btn btn-primary">Lodge a Grievance</a>
+            <a href="{{ url_for('track') }}" class="btn btn-secondary">Track Status</a>
+        </div>
+    </div>
+    <div class="hero-image"></div>
+</div>
+
+<div class="features">
+    <div class="feature-card">
+        <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        </div>
+        <h3>Academic Issues</h3>
+        <p style="color: var(--gray); margin-top: 0.5rem; font-size: 0.95rem;">Timetable conflicts, examination queries, or course registration problems. Fast-tracked to HODs.</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        </div>
+        <h3>Hostel & Facilities</h3>
+        <p style="color: var(--gray); margin-top: 0.5rem; font-size: 0.95rem;">Maintenance requests, Wi-Fi connectivity, or mess food quality concerns addressed directly by wardens.</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+        </div>
+        <h3>Anti-Ragging Cell</h3>
+        <p style="color: var(--gray); margin-top: 0.5rem; font-size: 0.95rem;">Zero-tolerance policy. Anonymous and secure reporting directly to the disciplinary committee.</p>
+    </div>
+</div>
+{% endblock %}

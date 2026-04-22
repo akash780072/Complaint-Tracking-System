@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Alpha College - Grievance Redressal System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            Important Announcement: Semester end feedback forms are live. Please ensure you submit any infrastructure or academic complaints before the 15th for prompt action by the administration.
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a href="{{ url_for('index') }}" class="nav-brand">
+            <div class="nav-brand-logo">A</div>
+            Alpha College
+        </a>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Home</a></li>
+            <li><a href="{{ url_for('register') }}" class="{% if request.endpoint == 'register' %}active{% endif %}">Lodge Grievance</a></li>
+            <li><a href="{{ url_for('track') }}" class="{% if request.endpoint == 'track' %}active{% endif %}">Track Status</a></li>
+            {% if session.get('admin_logged_in') %}
+                <li><a href="{{ url_for('admin_dashboard') }}" class="{% if request.endpoint == 'admin_dashboard' %}active{% endif %}">Admin</a></li>
+                <li><a href="{{ url_for('admin_logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('admin_login') }}" class="{% if request.endpoint == 'admin_login' %}active{% endif %}">Staff Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: var(--gray); margin-top: auto; border-top: 1px solid #e2e8f0;">
+        <p>&copy; 2025 Alpha College Grievance Redressal Cell. Building a Better Campus Together.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}?v=2"></script>
+</body>
+</html>

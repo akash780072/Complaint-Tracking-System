@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Lodge Grievance - Alpha College{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h2 class="form-title">Lodge a Grievance</h2>
+    <p style="text-align: center; color: var(--gray); margin-bottom: 2rem;">Please provide accurate details to help us resolve your issue quickly.</p>
+    
+    <form id="registerForm">
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="form-label" for="name">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Student Name" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="student_id">Student ID / Roll No.</label>
+                <input type="text" id="student_id" name="student_id" class="form-control" placeholder="e.g. CS2025-001" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">College Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="student@alpha.edu" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="department">Department</label>
+                <input list="departments" id="department" name="department" class="form-control" placeholder="Select or type department..." required>
+                <datalist id="departments">
+                    <option value="Computer Science Engineering">
+                    <option value="Mechanical Engineering">
+                    <option value="Electrical Engineering">
+                    <option value="Civil Engineering">
+                    <option value="Business Administration (BBA)">
+                    <option value="Arts and Humanities">
+                    <option value="Science (B.Sc)">
+                </datalist>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="category">Grievance Category</label>
+                <select id="category" name="category" class="form-control" required>
+                    <option value="" disabled selected>Select category...</option>
+                    <option value="Academic">Academic & Examinations</option>
+                    <option value="Hostel">Hostel & Mess</option>
+                    <option value="Infrastructure">Infrastructure & IT Support</option>
+                    <option value="Disciplinary">Disciplinary / Anti-Ragging</option>
+                    <option value="Other">Other Issues</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="priority">Priority Level</label>
+                <select id="priority" name="priority" class="form-control" required>
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High (Urgent)</option>
+                </select>
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label" for="title">Grievance Subject</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="Briefly summarize the issue" required>
+            </div>
+
+            <div class="form-group full-width">
+                <label class="form-label" for="description">Detailed Description</label>
+                <textarea id="description" name="description" class="form-control" placeholder="Provide all necessary details..." required></textarea>
+            </div>
+        </div>
+
+        <button type="button" id="submitBtn" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 1rem; font-size: 1.1rem;">Submit Grievance</button>
+    </form>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="confirmModal">
+        <h3 style="margin-bottom: 1rem; color: var(--primary);">Confirm Submission</h3>
+        <p style="margin-bottom: 2rem; color: var(--gray);">Are you sure you want to submit this grievance? Please ensure all details are accurate.</p>
+        <div class="action-buttons">
+            <button type="button" class="btn btn-secondary" id="cancelSubmit">Cancel</button>
+            <button type="button" class="btn btn-primary" id="confirmSubmit">Yes, Submit</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
